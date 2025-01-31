@@ -98,12 +98,6 @@ Got a suggestion or a fix? Open a pull request and help us make this project eve
 
 ---
 
-## License 📜
-
-This project is open-source and available under the [MIT License](LICENSE).
-
----
-
 ## Credits 🙏
 
 - **Selenium WebDriver:** For automating the browser and running our tests. 🖥️
