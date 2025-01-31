@@ -1,0 +1,2 @@
+selenium==4.4.3
+reportlab==3.6.11

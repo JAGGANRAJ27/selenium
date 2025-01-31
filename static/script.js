@@ -1,2 +1,3 @@
-// Add your JavaScript here 
-console.log('JavaScript is working!'); 
+document.getElementById("clickMe").addEventListener("click", function() {
+    document.getElementById("message").textContent = "Button clicked!";
+});
