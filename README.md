@@ -1,7 +1,3 @@
-Here’s a markdown document with the **screenshot feature** added to the **Automated Web Testing with Selenium & PDF Report Generation** project. It integrates the feature where screenshots are captured for failed test cases and added to the generated PDF.
-
----
-
 # Automated Web Testing with Selenium & PDF Report Generation 🧪📊
 
 Welcome to the world of automated testing with Selenium and beautifully generated PDF reports! 🚀
