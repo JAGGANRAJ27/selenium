@@ -1,19 +1,54 @@
+import os
+import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-import time
+from datetime import datetime
+from PIL import Image, ImageDraw, ImageFont
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
 from reportlab.lib import colors  # For text coloring
-from datetime import datetime
-import os
 from reportlab.platypus import Paragraph, Spacer
 
 # Function to convert input to Upper Camel Case (Pascal Case)
 def to_upper_camel_case(text):
     return ' '.join([word.capitalize() for word in text.split()])
 
+# Function to capture a screenshot and annotate it with error information
+def capture_screenshot(driver, test_name, error_message=None, expected_value=None):
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    screenshot_name = f"{test_name}_{timestamp}.png"
+    screenshot_path = os.path.join(os.getcwd(), "screenshots", screenshot_name)
+
+    # Create the screenshots folder if it doesn't exist
+    if not os.path.exists("screenshots"):
+        os.makedirs("screenshots")
+    
+    driver.save_screenshot(screenshot_path)
+
+    if error_message and expected_value:
+        # Open the screenshot image
+        img = Image.open(screenshot_path)
+        draw = ImageDraw.Draw(img)
+
+        # Font for the annotations
+        font = ImageFont.load_default()
+
+        # Text for error and expected value
+        annotation = f"Error: {error_message}\nExpected: {expected_value}"
+
+        # Position to place the annotation
+        text_position = (10, 10)
+
+        # Add text to the image (error message and expected value)
+        draw.text(text_position, annotation, font=font, fill="red")
+
+        # Save the annotated screenshot
+        img.save(screenshot_path)
+
+    return screenshot_path
+
 # Function to create a styled PDF report
-def create_pdf(project_name, client_name, profession, status, test_steps, failed_count, test_number=1):
+def create_pdf(project_name, client_name, profession, status, test_steps, failed_count, test_number=1, screenshot_path=None):
     # Get current date and time
     current_time = datetime.now().strftime("%d/%m/%Y %I:%M:%S %p")
     
@@ -88,7 +123,16 @@ def create_pdf(project_name, client_name, profession, status, test_steps, failed
     c.setFont("Helvetica", 10)
     c.setFillColor(colors.black)
     footer_text = f"This is the automated testing for the website {project_name} made by Jagganraj on {current_time}."
-    c.drawString(margin_left, y_position, footer_text)
+    c.drawString(margin_left, y_position - 320, footer_text)
+
+    # Save the current page
+    c.showPage()
+
+    # If screenshot exists, add the image to a new page
+    if screenshot_path:
+        c.drawString(margin_left, y_position, "Screenshot of failure:")
+        y_position -= 15
+        c.drawImage(screenshot_path, margin_left, y_position, width=400, height=300)
 
     # Save the PDF
     c.save()
@@ -167,8 +211,13 @@ except AssertionError:
 # Determine overall status
 status = "Failed" if failed_count > 0 else "Passed"
 
+# Capture screenshot in case of failure
+screenshot_path = None
+if failed_count > 0:
+    screenshot_path = capture_screenshot(driver, "Test_Failure")
+
 # Generate the PDF at the end, regardless of success or failure
-create_pdf(project_name, client_name, profession, status, test_steps, failed_count, test_number)
+create_pdf(project_name, client_name, profession, status, test_steps, failed_count, test_number, screenshot_path)
 
 # Final report
 print("\n--- Test Completed ---")
