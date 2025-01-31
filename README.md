@@ -1,3 +1,6 @@
+Here’s a markdown document with the **screenshot feature** added to the **Automated Web Testing with Selenium & PDF Report Generation** project. It integrates the feature where screenshots are captured for failed test cases and added to the generated PDF.
+
+---
 
 # Automated Web Testing with Selenium & PDF Report Generation 🧪📊
 
@@ -33,6 +36,7 @@ Imagine running tests and getting a PDF that looks like a **professional** repor
   - Date and time of the test 📅
   - Status of each test (Passed or Failed) ✅❌
   - Suggestions for failed tests 💡
+- **Screenshot on Failure:** If a test case fails, a screenshot is captured and added to the PDF for better clarity and troubleshooting 🖼️.
 - **Customization:** You can add your own details such as **Project Name**, **Client Name**, and **Profession** in the report (e.g., "Tested by Jagganraj" 😉).
 - **Smart Test Case Results:** The results are presented in **color-coded format** (Green for Passed, Red for Failed).
 - **Date and Time Formatting:** Test reports are timestamped using the **DD/MM/YYYY HH:MM:SS AM/PM** format.
@@ -69,6 +73,8 @@ Imagine running tests and getting a PDF that looks like a **professional** repor
 
 4. **Find the PDF report**: After the tests finish running, you’ll find a PDF report in the same directory as the script, named like `test_1.pdf`, `test_2.pdf`, etc.
 
+5. **Screenshot on Failure**: If a test fails, a screenshot will be captured and included in the PDF report to show exactly what went wrong.
+
 ---
 
 ## Customization 🎨
@@ -77,6 +83,10 @@ You can easily customize the script to suit your own project needs:
 
 - **Add More Test Cases:** Feel free to add more tests to check other parts of your site. Just follow the existing format, and you’re good to go!
 - **Modify the Report Styling:** If you have specific requirements for how the PDF report should look, you can tweak the `reportlab` code to adjust fonts, colors, and layout.
+
+### Screenshot Integration
+
+With the added **screenshot feature**, if any test case fails, a screenshot will be taken and added to a **new page** in the generated PDF report. This makes troubleshooting easier by providing a visual cue along with the error message and suggestions.
 
 ---
 
@@ -109,3 +119,7 @@ This project is open-source and available under the [MIT License](LICENSE).
 ## Fun Fact 🎉
 
 The first automated tests were written by **Harlan Mills** in the 1960s! Now, we’re taking it a step further by generating detailed PDF reports so you can impress your colleagues or clients. **Automate the boring stuff, and add some fun to the process!** 🎈
+
+---
+
+Now, you can generate detailed test reports with **screenshot support**! Enjoy your automated web testing! 🎉
