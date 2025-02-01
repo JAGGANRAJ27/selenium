@@ -6,10 +6,9 @@ from datetime import datetime
 from PIL import Image, ImageDraw, ImageFont
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
-from reportlab.lib import colors  # For text coloring
+from reportlab.lib import colors
 from reportlab.platypus import Paragraph, Spacer
 
-# Function to convert input to Upper Camel Case (Pascal Case)
 def to_upper_camel_case(text):
     return ' '.join([word.capitalize() for word in text.split()])
 
@@ -19,59 +18,38 @@ def capture_screenshot(driver, test_name, error_message=None, expected_value=Non
     screenshot_name = f"{test_name}_{timestamp}.png"
     screenshot_path = os.path.join(os.getcwd(), "screenshots", screenshot_name)
 
-    # Create the screenshots folder if it doesn't exist
     if not os.path.exists("screenshots"):
         os.makedirs("screenshots")
-    
+
     driver.save_screenshot(screenshot_path)
 
     if error_message and expected_value:
-        # Open the screenshot image
         img = Image.open(screenshot_path)
         draw = ImageDraw.Draw(img)
-
-        # Font for the annotations
         font = ImageFont.load_default()
-
-        # Text for error and expected value
         annotation = f"Error: {error_message}\nExpected: {expected_value}"
-
-        # Position to place the annotation
         text_position = (10, 10)
-
-        # Add text to the image (error message and expected value)
         draw.text(text_position, annotation, font=font, fill="red")
-
-        # Save the annotated screenshot
         img.save(screenshot_path)
-
+        
     return screenshot_path
 
-# Function to create a styled PDF report
 def create_pdf(project_name, client_name, profession, status, test_steps, failed_count, test_number=1, screenshot_path=None):
-    # Get current date and time
     current_time = datetime.now().strftime("%d/%m/%Y %I:%M:%S %p")
-    
-    # Generate unique file name based on test number
     file_name = f"test_{test_number}.pdf"
     while os.path.exists(file_name):
         test_number += 1
         file_name = f"test_{test_number}.pdf"
 
-    # Define margins
     margin_left = 20
     margin_top = 780
     line_height = 12
     y_position = margin_top
     width, height = A4
     
-    # Creating PDF canvas
     c = canvas.Canvas(file_name, pagesize=A4)
-    
-    # Set font to default font for general text
     c.setFont("Helvetica", 12)
 
-    # Header: Two Columns (Left and Right)
     # Left column
     c.drawString(margin_left, y_position, f"Project Name: {project_name}")
     y_position -= line_height
@@ -87,19 +65,16 @@ def create_pdf(project_name, client_name, profession, status, test_steps, failed
     c.drawString(width / 2 + margin_left, y_position, f"Client Name: {client_name}")
     y_position -= line_height
     c.drawString(width / 2 + margin_left, y_position, f"Profession: {profession}")
-    y_position -= line_height * 2  # Adding space between columns and next content
+    y_position -= line_height * 2
 
-    # Draw a line separator after header
     c.setLineWidth(0.5)
     c.line(margin_left, y_position, width - margin_left, y_position)
-    y_position -= 15  # Line space
+    y_position -= 25  # Line space
 
-    # Test cases result section
     c.setFont("Helvetica", 12)
     c.drawString(margin_left, y_position, "Test Cases:")
     y_position -= line_height
 
-    # Add each test case result
     for i, (test_case, result, expected, suggestion) in enumerate(test_steps):
         color = colors.green if result == "Passed" else colors.red
         c.setFillColor(color)
@@ -112,60 +87,44 @@ def create_pdf(project_name, client_name, profession, status, test_steps, failed
             c.drawString(margin_left, y_position, f"Suggestion: {suggestion}")
             y_position -= line_height * 2
         else:
-            y_position -= line_height * 2  # Skip space for passed test cases
-
-    # Draw another line separator after test cases section
+            y_position -= line_height * 2 
     c.setLineWidth(0.5)
     c.line(margin_left, y_position, width - margin_left, y_position)
     y_position -= 15  # Line space
 
-    # Footer section
     c.setFont("Helvetica", 10)
     c.setFillColor(colors.black)
     footer_text = f"This is the automated testing for the website {project_name} made by Jagganraj on {current_time}."
     c.drawString(margin_left, y_position - 320, footer_text)
 
-    # Save the current page
     c.showPage()
 
-    # If screenshot exists, add the image to a new page
     if screenshot_path:
         c.drawString(margin_left, y_position, "Screenshot of failure:")
         y_position -= 15
         c.drawImage(screenshot_path, margin_left, y_position, width=400, height=300)
 
-    # Save the PDF
     c.save()
 
-# Set up WebDriver
 driver = webdriver.Chrome()
-
-# Track test number (default to 1)
 test_number = 1
-
-# Initialize list of test steps and failed count
 test_steps = []
 failed_count = 0
 
-# Prompt user for details
-project_name = to_upper_camel_case(input("Enter the project name: "))  # Convert input to Upper Camel Case
-client_name = to_upper_camel_case(input("Enter the client name: "))  # Convert input to Upper Camel Case
-profession = to_upper_camel_case(input("Enter your profession: "))  # Convert input to Upper Camel Case
-
-# Function to log errors and suggestions
+project_name = to_upper_camel_case(input("Enter the project name: "))  
+client_name = to_upper_camel_case(input("Enter the client name: "))  
+profession = to_upper_camel_case(input("Enter your profession: "))  
 def log_error(test_case, expected, error_message, test_steps, suggestion):
     print(f"\n--- Test Case: {test_case} ---")
     print(f"Expected: {expected}")
     print(f"Error: {error_message}")
     print(f"Suggested Update: {suggestion}")
-    
-    # Add the failed step and suggestion to the list
+
     test_steps.append((test_case, "Failed", expected, suggestion))
 
-# Open the website
 try:
-    driver.get("file:///E:/Selenium_testing/first_practice_test/index.html")  # Change path to your local HTML file
-    time.sleep(2)  # Wait for the page to load
+    driver.get("file:///E:/Selenium_testing/first_practice_test/index.html") 
+    time.sleep(2)  
     test_steps.append(("Opening Website", "Passed", "", ""))
 except Exception as e:
     log_error("Opening Website", "Website should open successfully", f"Failed to open the webpage. Error: {str(e)}", test_steps, "Ensure the path is correct and the webpage is accessible.")
@@ -192,8 +151,6 @@ except Exception as e:
     suggestion = "Ensure the button with id 'clickMe' exists and is clickable."
     log_error("Finding and Clicking Button", "Button should be clickable", f"Failed to locate or click the button. Error: {str(e)}", test_steps, suggestion)
     failed_count += 1
-
-# Wait for the message to appear
 time.sleep(2)
 
 # Verify the message appears
@@ -208,20 +165,13 @@ except AssertionError:
     log_error("Verifying Message", expected_message, f"Error: Expected message to be '{expected_message}', but got '{message}'", test_steps, suggestion)
     failed_count += 1
 
-# Determine overall status
 status = "Failed" if failed_count > 0 else "Passed"
 
-# Capture screenshot in case of failure
 screenshot_path = None
 if failed_count > 0:
     screenshot_path = capture_screenshot(driver, "Test_Failure")
 
-# Generate the PDF at the end, regardless of success or failure
 create_pdf(project_name, client_name, profession, status, test_steps, failed_count, test_number, screenshot_path)
-
-# Final report
 print("\n--- Test Completed ---")
 print("Test Completed!")
-
-# Close browser
 driver.quit()
