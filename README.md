@@ -13,7 +13,6 @@ This project is designed to make your web testing process as smooth as possible 
 - [How to Run the Tests](#how-to-run-the-tests)
 - [Customization](#customization)
 - [Contributing](#contributing)
-- [License](#license)
 
 ---
 
