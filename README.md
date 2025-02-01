@@ -17,7 +17,7 @@ This project is designed to make your web testing process as smooth as possible 
 
 ---
 
-## Why This Project? 🤔
+# # Why This Project? 🤔
 
 Running automated tests is **awesome**, but tracking and reporting those tests in a **well-organized** and **fun** format makes the whole process much more enjoyable! 📈
 
