@@ -69,7 +69,7 @@ def create_pdf(project_name, client_name, profession, status, test_steps, failed
 
     c.setLineWidth(0.5)
     c.line(margin_left, y_position, width - margin_left, y_position)
-    y_position -= 25  # Line space
+    y_position -= 30  # Line space
 
     c.setFont("Helvetica", 12)
     c.drawString(margin_left, y_position, "Test Cases:")
@@ -90,7 +90,7 @@ def create_pdf(project_name, client_name, profession, status, test_steps, failed
             y_position -= line_height * 2 
     c.setLineWidth(0.5)
     c.line(margin_left, y_position, width - margin_left, y_position)
-    y_position -= 15  # Line space
+    y_position -= 25  # Line space
 
     c.setFont("Helvetica", 10)
     c.setFillColor(colors.black)
