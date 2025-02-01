@@ -73,7 +73,7 @@ Imagine running tests and getting a PDF that looks like a **professional** repor
 
 ---
 
-## Customization 🎨
+## Customization
 
 You can easily customize the script to suit your own project needs:
 
@@ -86,7 +86,7 @@ With the added **screenshot feature**, if any test case fails, a screenshot will
 
 ---
 
-## Contributing 🤝
+## Contributing
 
 Got a suggestion or a fix? Open a pull request and help us make this project even better!
 
@@ -98,7 +98,7 @@ Got a suggestion or a fix? Open a pull request and help us make this project eve
 
 ---
 
-## Credits 🙏
+## Credits
 
 - **Selenium WebDriver:** For automating the browser and running our tests. 🖥️
 - **ReportLab:** For creating the PDF report (because we need those pretty PDFs!). 📄
