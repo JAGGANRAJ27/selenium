@@ -17,7 +17,7 @@ This project is designed to make your web testing process as smooth as possible 
 
 ---
 
-# Why This Project? 🤔
+# Why This Project?
 
 Running automated tests is **awesome**, but tracking and reporting those tests in a **well-organized** and **fun** format makes the whole process much more enjoyable! 📈
 
@@ -25,7 +25,7 @@ Imagine running tests and getting a PDF that looks like a **professional** repor
 
 ---
 
-# Features ✨
+# Features
 
 - **Automated Testing:** Automatically runs tests on your HTML, CSS, and JavaScript websites using **Selenium WebDriver**.
 - **PDF Report Generation:** After running the tests, a neat **PDF report** is generated with:
@@ -40,7 +40,7 @@ Imagine running tests and getting a PDF that looks like a **professional** repor
 
 ---
 
-# How to Run the Tests ⚙️
+# How to Run the Tests
 
 1. **Clone the repository:**
    ```bash
