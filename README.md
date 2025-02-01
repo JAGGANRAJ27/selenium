@@ -13,11 +13,10 @@ This project is designed to make your web testing process as smooth as possible 
 - [How to Run the Tests](#how-to-run-the-tests)
 - [Customization](#customization)
 - [Contributing](#contributing)
-- [License](#license)
 
 ---
 
-## Why This Project? 🤔
+# Why This Project?
 
 Running automated tests is **awesome**, but tracking and reporting those tests in a **well-organized** and **fun** format makes the whole process much more enjoyable! 📈
 
@@ -25,7 +24,7 @@ Imagine running tests and getting a PDF that looks like a **professional** repor
 
 ---
 
-## Features ✨
+# Features
 
 - **Automated Testing:** Automatically runs tests on your HTML, CSS, and JavaScript websites using **Selenium WebDriver**.
 - **PDF Report Generation:** After running the tests, a neat **PDF report** is generated with:
@@ -40,7 +39,7 @@ Imagine running tests and getting a PDF that looks like a **professional** repor
 
 ---
 
-## How to Run the Tests ⚙️
+# How to Run the Tests
 
 1. **Clone the repository:**
    ```bash
@@ -73,7 +72,7 @@ Imagine running tests and getting a PDF that looks like a **professional** repor
 
 ---
 
-## Customization 🎨
+## Customization
 
 You can easily customize the script to suit your own project needs:
 
@@ -86,7 +85,7 @@ With the added **screenshot feature**, if any test case fails, a screenshot will
 
 ---
 
-## Contributing 🤝
+## Contributing
 
 Got a suggestion or a fix? Open a pull request and help us make this project even better!
 
@@ -98,13 +97,7 @@ Got a suggestion or a fix? Open a pull request and help us make this project eve
 
 ---
 
-## License 📜
-
-This project is open-source and available under the [MIT License](LICENSE).
-
----
-
-## Credits 🙏
+## Credits
 
 - **Selenium WebDriver:** For automating the browser and running our tests. 🖥️
 - **ReportLab:** For creating the PDF report (because we need those pretty PDFs!). 📄
